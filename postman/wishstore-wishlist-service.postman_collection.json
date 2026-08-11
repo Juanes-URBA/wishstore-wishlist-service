@@ -1,0 +1,284 @@
+{
+  "info": {
+    "name": "wishstore-wishlist-service",
+    "description": "Coleccion de pruebas para el microservicio wishstore-wishlist-service. Incluye ejemplos de respuestas exitosas y de error para los 5 endpoints expuestos.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8082"
+    },
+    {
+      "key": "wishlistId",
+      "value": "1"
+    },
+    {
+      "key": "userId",
+      "value": "10"
+    },
+    {
+      "key": "productId",
+      "value": "100"
+    }
+  ],
+  "item": [
+    {
+      "name": "GET /wishlist - Obtener todos los registros",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/wishlist",
+          "host": ["{{baseUrl}}"],
+          "path": ["wishlist"]
+        }
+      },
+      "response": [
+        {
+          "name": "200 OK - Lista de registros",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/wishlist",
+              "host": ["{{baseUrl}}"],
+              "path": ["wishlist"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "body": "[\n  {\n    \"id\": 1,\n    \"userId\": 10,\n    \"productId\": 100,\n    \"createdAt\": \"2026-08-05T10:15:30\"\n  },\n  {\n    \"id\": 2,\n    \"userId\": 10,\n    \"productId\": 101,\n    \"createdAt\": \"2026-08-05T11:00:00\"\n  }\n]"
+        }
+      ]
+    },
+    {
+      "name": "GET /wishlist/{id} - Obtener por id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/wishlist/{{wishlistId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["wishlist", "{{wishlistId}}"]
+        }
+      },
+      "response": [
+        {
+          "name": "200 OK - Registro encontrado",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/wishlist/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["wishlist", "1"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"id\": 1,\n  \"userId\": 10,\n  \"productId\": 100,\n  \"createdAt\": \"2026-08-05T10:15:30\"\n}"
+        },
+        {
+          "name": "404 NOT FOUND - Registro inexistente",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/wishlist/999",
+              "host": ["{{baseUrl}}"],
+              "path": ["wishlist", "999"]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"timestamp\": \"2026-08-05T12:00:00\",\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"message\": \"No se encontro un registro de wishlist con id: 999\",\n  \"path\": \"/wishlist/999\",\n  \"details\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "GET /wishlist/user/{userId} - Obtener por usuario",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/wishlist/user/{{userId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["wishlist", "user", "{{userId}}"]
+        }
+      },
+      "response": [
+        {
+          "name": "200 OK - Registros del usuario",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/wishlist/user/10",
+              "host": ["{{baseUrl}}"],
+              "path": ["wishlist", "user", "10"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "body": "[\n  {\n    \"id\": 1,\n    \"userId\": 10,\n    \"productId\": 100,\n    \"createdAt\": \"2026-08-05T10:15:30\"\n  }\n]"
+        }
+      ]
+    },
+    {
+      "name": "POST /wishlist - Crear registro",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": {{userId}},\n  \"productId\": {{productId}}\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/wishlist",
+          "host": ["{{baseUrl}}"],
+          "path": ["wishlist"]
+        }
+      },
+      "response": [
+        {
+          "name": "201 CREATED - Registro creado",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 10,\n  \"productId\": 100\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wishlist",
+              "host": ["{{baseUrl}}"],
+              "path": ["wishlist"]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"id\": 1,\n  \"userId\": 10,\n  \"productId\": 100,\n  \"createdAt\": \"2026-08-05T10:15:30\"\n}"
+        },
+        {
+          "name": "404 NOT FOUND - Producto inexistente en Catalog Service",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 10,\n  \"productId\": 99999\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wishlist",
+              "host": ["{{baseUrl}}"],
+              "path": ["wishlist"]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"timestamp\": \"2026-08-05T12:05:00\",\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"message\": \"El producto con id 99999 no existe en el catalogo\",\n  \"path\": \"/wishlist\",\n  \"details\": null\n}"
+        },
+        {
+          "name": "409 CONFLICT - Producto duplicado en wishlist",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 10,\n  \"productId\": 100\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wishlist",
+              "host": ["{{baseUrl}}"],
+              "path": ["wishlist"]
+            }
+          },
+          "status": "Conflict",
+          "code": 409,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"timestamp\": \"2026-08-05T12:06:00\",\n  \"status\": 409,\n  \"error\": \"Conflict\",\n  \"message\": \"El usuario 10 ya tiene registrado el producto 100 en su wishlist\",\n  \"path\": \"/wishlist\",\n  \"details\": null\n}"
+        },
+        {
+          "name": "400 BAD REQUEST - Datos invalidos",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": null,\n  \"productId\": -5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wishlist",
+              "host": ["{{baseUrl}}"],
+              "path": ["wishlist"]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"timestamp\": \"2026-08-05T12:07:00\",\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"message\": \"Error de validacion en los datos enviados\",\n  \"path\": \"/wishlist\",\n  \"details\": [\n    \"El campo userId es obligatorio\",\n    \"El campo productId debe ser un valor positivo\"\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "DELETE /wishlist/{id} - Eliminar registro",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/wishlist/{{wishlistId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["wishlist", "{{wishlistId}}"]
+        }
+      },
+      "response": [
+        {
+          "name": "204 NO CONTENT - Eliminado correctamente",
+          "originalRequest": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/wishlist/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["wishlist", "1"]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": "json",
+          "body": null
+        },
+        {
+          "name": "404 NOT FOUND - Registro inexistente",
+          "originalRequest": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/wishlist/999",
+              "host": ["{{baseUrl}}"],
+              "path": ["wishlist", "999"]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"timestamp\": \"2026-08-05T12:10:00\",\n  \"status\": 404,\n  \"error\": \"Not Found\",\n  \"message\": \"No se encontro un registro de wishlist con id: 999\",\n  \"path\": \"/wishlist/999\",\n  \"details\": null\n}"
+        }
+      ]
+    }
+  ]
+}
