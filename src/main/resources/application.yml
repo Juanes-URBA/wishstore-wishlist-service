@@ -1,0 +1,44 @@
+server:
+  port: ${SERVER_PORT:8082}
+
+spring:
+  application:
+    name: wishstore-wishlist-service
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:wishstore_wishlist_db}?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: full
+
+logging:
+  level:
+    com.wishstore.wishlist: DEBUG
+    org.springframework.cloud.openfeign: DEBUG
+
+# URLs de los servicios externos consumidos via OpenFeign.
+# Se sobrescriben mediante variables de entorno en Docker/Kubernetes.
+services:
+  catalog:
+    url: ${CATALOG_SERVICE_URL:http://localhost:8081}
+  history:
+    url: ${HISTORY_SERVICE_URL:http://localhost:8083}
