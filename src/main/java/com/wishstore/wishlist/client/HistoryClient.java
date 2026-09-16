@@ -17,7 +17,7 @@ public interface HistoryClient {
      *
      * @param historyRequest datos del evento a registrar
      */
-    @PostMapping("/api/history")
+    @PostMapping("/history")
     void registerEvent(HistoryRequest historyRequest);
 
 }

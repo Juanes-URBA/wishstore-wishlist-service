@@ -19,7 +19,7 @@ public interface CatalogClient {
      * @return los datos del producto si existe, o null si el
      *         Catalog Service indica que el producto no existe
      */
-    @GetMapping("/api/catalog/products/{productId}")
+    @GetMapping("/products/{productId}")
     CatalogProductResponse getProductById(Long productId);
 
 }
