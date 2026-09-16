@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
         configuration = FeignClientConfig.class
 )
 public interface HistoryClient {
+
     /**
      * Registra un evento de wishlist en el History Service.
      *
      * @param historyRequest datos del evento a registrar
      */
     @PostMapping("/history")
-    void registerEvent(HistoryRequest historyRequest);
+    void registerEvent(@RequestBody HistoryRequest historyRequest);
 
 }

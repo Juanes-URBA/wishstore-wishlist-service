@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
         configuration = FeignClientConfig.class
 )
 public interface CatalogClient {
+
     /**
      * Consulta un producto en el Catalog Service por su identificador.
      *
@@ -20,6 +21,6 @@ public interface CatalogClient {
      *         Catalog Service indica que el producto no existe
      */
     @GetMapping("/products/{productId}")
-    CatalogProductResponse getProductById(Long productId);
+    CatalogProductResponse getProductById(@PathVariable("productId") Long productId);
 
 }
