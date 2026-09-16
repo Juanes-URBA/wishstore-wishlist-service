@@ -15,7 +15,6 @@ import com.wishstore.wishlist.service.WishlistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -102,10 +101,10 @@ public class WishlistServiceImpl implements WishlistService {
         Wishlist savedWishlist = wishlistRepository.save(wishlist);
 
         HistoryRequest historyRequest = HistoryRequest.builder()
-                .userId(savedWishlist.getUserId())
+                .wishlistId(savedWishlist.getId())
                 .productId(savedWishlist.getProductId())
                 .action(HISTORY_ACTION_ADDED)
-                .eventDate(LocalDateTime.now())
+                .description("Producto agregado a la wishlist")
                 .build();
         historyClient.registerEvent(historyRequest);
 
