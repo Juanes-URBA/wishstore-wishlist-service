@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class WishlistServiceImpl implements WishlistService {
 
-    private static final String HISTORY_ACTION_ADDED = "ADDED_TO_WISHLIST";
+    private static final String HISTORY_ACTION_ADDED = "ADD";
 
     private final WishlistRepository wishlistRepository;
     private final WishlistMapper wishlistMapper;
